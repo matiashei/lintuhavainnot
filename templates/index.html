@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>Lintupäiväkirja</title>
+</head>
+
+<body>
+  <h1>Lintupäiväkirja</h1>
+  {% if session.username %}
+  <p>
+    Olet kirjautunut nimimerkillä {{ session.username }}
+  </p>
+
+  {% endif %}
+
+  <p>
+    <a href="/login">Kirjaudu sisään</a>
+    <a href="/register">Luo käyttäjä</a>
+    <a href="/logout">Kirjaudu ulos</a>
+
+  </p>
+
+</body>
+
+</html>
