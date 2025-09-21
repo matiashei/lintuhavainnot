@@ -9,10 +9,14 @@
   <h1>Lintupäiväkirja</h1>
   {% if session.username %}
   <p>
-    Olet kirjautunut nimimerkillä {{ session.username }}
+    Olet kirjautunut nimimerkillä {{ session.username }}, käyttäjänumerosi on {{session.user_id}}
   </p>
 
   {% endif %}
+
+  <p>
+    <a href="/new_item">Uusi havainto</a>
+  </p>
 
   <p>
     <a href="/login">Kirjaudu sisään</a>
