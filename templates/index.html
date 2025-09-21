@@ -6,7 +6,7 @@
 </head>
 
 <body>
-  <h1>Lintupäiväkirja</h1>
+
   {% if session.username %}
   <p>
     Olet kirjautunut nimimerkillä {{ session.username }}, käyttäjänumerosi on {{session.user_id}}
@@ -24,6 +24,13 @@
     <a href="/logout">Kirjaudu ulos</a>
 
   </p>
+
+  <h1>Viimeisimmät lintuhavainnot</h1>
+  <ul>
+      {% for item in items %}
+      <li><a href="/item/{{ item.id}}">{{ item.species }}</a></li>
+      {% endfor %}
+  </ul>
 
 </body>
 
