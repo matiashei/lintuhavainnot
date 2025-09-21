@@ -9,11 +9,13 @@ def get_items():
     return db.query(sql)
 
 def get_item(item_id):
-    sql = """SELECT items.species,
+    sql = """SELECT items.id,
+                    items.species,
                     items.amount,
                     items.place,
                     items.city,
                     items.description,
+                    users.id user_id,
                     users.username
              FROM items
              JOIN users ON items.user_id = users.id
@@ -22,3 +24,12 @@ def get_item(item_id):
     if result:
         return result[0]
     return None
+
+def update_item(item_id, species, amount, place, city, description):
+    sql = """UPDATE items SET species = ?,
+                                amount = ?,
+                                place = ?,
+                                city = ?,
+                                description = ?
+            WHERE id = ?"""
+    db.execute(sql, [species, amount, place, city, description, item_id])

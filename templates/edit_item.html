@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>Havainnon muokkaaminen</title>
+</head>
+
+<body>
+    <h1>Havainnon muokkaaminen</h1>
+  <form action="/update_item" method="post">
+    <p>
+      Laji: <br />
+      <input type="text" name="species" value="{{item.species}}" />
+    </p>
+    <p>
+        Lukumäärä <br />
+      <input type="text" name="amount" size="8" value="{{item.amount}}"" /> kpl
+    </p> 
+    <p>
+        Havaintopaikka <br />
+      <input type="text" name="place" value="{{item.place}}" />
+    </p>
+    <p>
+        Kaupunki/kunta <br />
+      <input type="text" name="city" value="{{item.city}}" />
+    </p>
+    <p>
+        Kuvaus: <br />
+    <textarea name="description" rows="8" cols="40"> {{item.description}}</textarea>
+    </p>
+    <input type="hidden" name="item_id" value="{{ item.id }}" />
+    <input type="submit" value="Päivitä havainto" />
+  </form>
+</body>
+
+</html>

@@ -37,6 +37,23 @@ def create_item():
     items.add_item(species, amount, place, city, description, user_id)
     return redirect("/")
 
+@app.route("/edit_item/<int:item_id>")
+def edit_item(item_id):
+    item = items.get_item(item_id)
+    return render_template("edit_item.html", item=item)
+
+@app.route("/update_item", methods=["POST"])
+def update_item():
+    item_id = request.form["item_id"]
+    species = request.form["species"]
+    amount = request.form["amount"]
+    place = request.form["place"]
+    city = request.form["city"]
+    description = request.form["description"]
+
+    items.update_item(item_id, species, amount, place, city, description)
+    return redirect("/item/" + str(item_id))
+
 @app.route("/register")
 def register():
     return render_template("register.html")
