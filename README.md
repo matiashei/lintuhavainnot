@@ -10,7 +10,7 @@
 * Sovelluksessa on käyttäjäsivut, jotka näyttävät tilastoja ja käyttäjän lisäämät havainnot.
 * Käyttäjä pystyy kommentoimaan havaintoja esimerkiksi tilanteessa, jossa havainto on epävarma ja toinen käyttäjä tarvitsee apua sen varmistamiseksi.
 
-* ## Sovelluksen asennus
+## Sovelluksen asennus
 
 Asenna `flask`-kirjasto:
 
