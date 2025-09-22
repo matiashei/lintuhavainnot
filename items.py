@@ -37,3 +37,11 @@ def update_item(item_id, species, amount, place, city, description):
 def remove_item(item_id):
     sql = "DELETE FROM items WHERE id = ?"
     db.execute(sql, [item_id])
+
+def search_items(query):
+    sql = """SELECT id, species
+            FROM items
+            WHERE place LIKE ? OR city LIKE ? OR species LIKE ?
+            ORDER BY id DESC"""
+    like = "%" + query + "%"
+    return db.query(sql, [like, like, like])

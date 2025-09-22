@@ -2,27 +2,15 @@
 <html>
 
 <head>
-  <title>Lintupäiväkirja</title>
+  <title>Lintuhavainnot</title>
 </head>
 
 <body>
 
-  {% if session.username %}
-  <p>
-    Olet kirjautunut nimimerkillä {{ session.username }}, käyttäjänumerosi on {{session.user_id}}
-  </p>
-
-  {% endif %}
 
   <p>
     <a href="/new_item">Uusi havainto</a>
-  </p>
-
-  <p>
-    <a href="/login">Kirjaudu sisään</a>
-    <a href="/register">Luo käyttäjä</a>
-    <a href="/logout">Kirjaudu ulos</a>
-
+    <a href="/search_item">Etsi havaintoja</a>
   </p>
 
   <h1>Viimeisimmät lintuhavainnot</h1>
@@ -31,6 +19,21 @@
       <li><a href="/item/{{ item.id}}">{{ item.species }}</a></li>
       {% endfor %}
   </ul>
+
+  {% if session.username %}
+  <p>
+    Olet kirjautunut nimimerkillä {{ session.username }}, käyttäjänumerosi on {{session.user_id}}
+    <br>
+    <a href="/logout">Kirjaudu ulos</a>
+  </p>
+  {% else %}
+  <p>
+    <a href="/login">Kirjaudu sisään</a>
+    <a href="/register">Luo käyttäjä</a>
+  </p>
+  {% endif %}
+
+
 
 </body>
 
