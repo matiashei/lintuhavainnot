@@ -8,16 +8,15 @@
 <body>
     <h1>{{ item.species }}</h1>
   {% if session.user_id ==item.user_id %}
-  <p><a href="/edit_item/{{ item.id }}">Muokkkaa havaintoa</a>  </p>
-  <p>
-    Olet kirjautunut nimimerkillä {{ session.username }}, käyttäjänumerosi on {{session.user_id}}
-  </p>
+  <p><a href="/edit_item/{{ item.id }}">Muokkkaa</a>  
+    <a href="/remove_item/{{ item.id }}">Poista</a>
+    </p>
 
   {% endif %}
 
     <p>Määrä: {{item.amount}}</p>
+    <p>Kunta: {{item.city}}</p>
     <p>Havaintopaikka: {{item.place}}</p>
-    <p>Kaupunki/kunta: {{item.city}}</p>
     <p>Kuvaus/kommentti: {{item.description}}</p>
     <br>
     <p>Havainnon tekijä: {{item.username}}</p>
