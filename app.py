@@ -5,6 +5,7 @@ from werkzeug.security import check_password_hash, generate_password_hash
 import config
 import db
 import items
+import users
 import re
 
 app = Flask(__name__)
@@ -18,6 +19,15 @@ def require_login():
 def index():
     all_items = items.get_items()
     return render_template("index.html", items = all_items)
+
+@app.route("/user/<int:user_id>")
+def show_user(user_id):
+    user = users.get_user(user_id)
+    if not user:
+        abort(404)
+    items = users.get_items(user_id)
+    return render_template("show_user.html", user=user, items=items)
+
 
 @app.route("/search_item")
 def search_item():
@@ -45,10 +55,20 @@ def new_item():
 def create_item():
     require_login()    
     species = request.form["species"]
+    if not species or len(species) > 20:
+        abort(403)
     amount = request.form["amount"]
-    place = request.form["place"]
+    if not amount or not re.search("^[1-9][0-9]{0,9}$",amount):
+        abort(403)
     city = request.form["city"]
+    if not city or len(city) > 20:
+        abort(403)
+    place = request.form["place"]
+    if not place or len(place) > 50:
+        abort(403)
     description = request.form["description"]
+    if len(description) > 500:
+        abort(403)
     user_id = session["user_id"]
 
     items.add_item(species, amount, place, city, description, user_id)
@@ -96,7 +116,7 @@ def update_item():
     if not species or len(species) > 20:
         abort(403)
     amount = request.form["amount"]
-    if not amount or not re.search("^[1-9][0-9]{0,9}$",amount): #SELVITÄ VIKA
+    if not amount or not re.search("^[1-9][0-9]{0,9}$",amount):
         abort(403)
     city = request.form["city"]
     if not city or len(city) > 20:
