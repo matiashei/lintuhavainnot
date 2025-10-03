@@ -5,6 +5,7 @@ from werkzeug.security import check_password_hash, generate_password_hash
 import config
 import db
 import items
+import re
 
 app = Flask(__name__)
 app.secret_key = config.secret_key
@@ -85,17 +86,27 @@ def remove_item(item_id):
 def update_item():
     require_login()
     item_id = request.form["item_id"]
-    if not item:
+    if not item_id:
         abort(404)
     item = items.get_item(item_id)
     if item["user_id"] != session["user_id"]:
         abort(403)
 
     species = request.form["species"]
+    if not species or len(species) > 20:
+        abort(403)
     amount = request.form["amount"]
-    place = request.form["place"]
+    if not amount or not re.search("^[1-9][0-9]{0,9}$",amount): #SELVITÄ VIKA
+        abort(403)
     city = request.form["city"]
+    if not city or len(city) > 20:
+        abort(403)
+    place = request.form["place"]
+    if not place or len(place) > 50:
+        abort(403)
     description = request.form["description"]
+    if len(description) > 500:
+        abort(403)
 
     items.update_item(item_id, species, amount, place, city, description)
     return redirect("/item/" + str(item_id))

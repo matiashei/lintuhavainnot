@@ -10,19 +10,19 @@
   <form action="/update_item" method="post">
     <p>
       Laji: <br />
-      <input type="text" name="species" value="{{item.species}}" />
+      <input type="text" name="species" value="{{item.species}}" required />
     </p>
     <p>
         Lukumäärä <br />
-      <input type="text" name="amount" size="8" value="{{item.amount}}"" /> kpl
+      <input type="text" name="amount" size="8" value="{{item.amount}}" pattern="[1-9][0-9]{0,9}" required /> kpl
     </p> 
     <p>
         Kunta <br />
-      <input type="text" name="city" value="{{item.city}}" />
+      <input type="text" name="city" value="{{item.city}}" required />
     </p>
     <p>
         Havaintopaikka <br />
-      <input type="text" name="place" value="{{item.place}}" />
+      <input type="text" name="place" value="{{item.place}}" required />
     </p>
     <p>
         Kuvaus: <br />
