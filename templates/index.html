@@ -7,9 +7,10 @@
 
 <body>
 
-
   <p>
+    {% if session.username %}
     <a href="/new_item">Uusi havainto</a>
+    {% endif %}
     <a href="/search_item">Etsi havaintoja</a>
   </p>
 
