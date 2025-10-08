@@ -6,6 +6,7 @@ import db
 import items
 import users
 import re
+import csv
 
 app = Flask(__name__)
 app.secret_key = config.secret_key
@@ -48,7 +49,25 @@ def show_item(item_id):
 @app.route("/new_item")
 def new_item():
     require_login()
-    return render_template("new_item.html")
+    municipalities = get_municipalities()
+    species = get_species()
+    return render_template("new_item.html", municipalities=municipalities, species=species)
+
+def get_species(filename="species.csv"):
+    species = []
+    with open(filename, newline="", encoding="utf-8") as csvfile:
+        reader = csv.DictReader(csvfile, delimiter=';')
+        for row in reader:
+            species.append(row["classificationName"])
+    return species
+
+def get_municipalities(filename="municipalities.csv"):
+    municipalities = []
+    with open(filename, newline="", encoding="utf-8") as csvfile:
+        reader = csv.DictReader(csvfile, delimiter=';')
+        for row in reader:
+            municipalities.append(row["classificationName"])
+    return municipalities
 
 @app.route("/create_item", methods=["POST"])
 def create_item():
