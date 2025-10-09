@@ -7,6 +7,7 @@ import items
 import users
 import re
 import csv
+from collections import defaultdict
 from datetime import datetime
 
 app = Flask(__name__)
@@ -19,7 +20,19 @@ def require_login():
 @app.route("/")
 def index():
     all_items = items.get_items()
-    return render_template("index.html", items = all_items)
+
+    grouped = defaultdict(list)
+    for item in all_items:
+        formatted_date = datetime.strptime(item["date"], "%Y-%m-%d").strftime("%d.%m.%Y")
+        grouped[formatted_date].append(item)
+
+    sorted_grouped = dict(sorted(
+        grouped.items(),
+        key=lambda kv: datetime.strptime(kv[0], "%d.%m.%Y"),
+        reverse=True
+    ))
+
+    return render_template("index.html", grouped=sorted_grouped)
 
 @app.route("/user/<int:user_id>")
 def show_user(user_id):

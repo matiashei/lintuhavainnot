@@ -5,7 +5,7 @@ def add_item(species, date, amount, place, municipality, description, user_id):
     db.execute(sql, [species, date, amount, place, municipality, description, user_id])
 
 def get_items():
-    sql = "SELECT id, species, amount, municipality FROM items ORDER BY date DESC, id DESC"
+    sql = "SELECT id, species, date, amount, municipality FROM items ORDER BY date DESC, id DESC"
     return db.query(sql)
 
 def get_item(item_id):
