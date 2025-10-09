@@ -9,7 +9,7 @@ CREATE TABLE items (
     species TEXT,
     amount INTEGER,
     place TEXT,
-    city TEXT,
+    municipality TEXT,
     description TEXT,
     user_id INTEGER REFERENCES users(id)
 );

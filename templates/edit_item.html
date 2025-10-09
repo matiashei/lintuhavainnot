@@ -10,15 +10,25 @@
   <form action="/update_item" method="post">
     <p>
       Laji: <br />
-      <input type="text" name="species" value="{{item.species}}" required />
+      <input list="species" name="species" required />
+      <datalist id="species">
+        {% for specie in species %}
+          <option value="{{ specie }}"></option>
+        {% endfor %}
+      </datalist>
     </p>
     <p>
         Lukumäärä <br />
-      <input type="text" name="amount" size="8" value="{{item.amount}}" pattern="[1-9][0-9]{0,9}" required /> kpl
+      <input type="text" name="amount" size="8" pattern="[1-9][0-9]{0,9}" required /> kpl
     </p> 
     <p>
-        Kunta <br />
-      <input type="text" name="city" value="{{item.city}}" required />
+      Paikkakunta: <br />
+      <input list="municipalities" name="municipality" required />
+      <datalist id="municipalities">
+        {% for municipality in municipalities %}
+          <option value="{{ municipality }}"></option>
+        {% endfor %}
+      </datalist>
     </p>
     <p>
         Havaintopaikka <br />

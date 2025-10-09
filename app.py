@@ -78,8 +78,8 @@ def create_item():
     amount = request.form["amount"]
     if not amount or not re.search("^[1-9][0-9]{0,9}$",amount):
         abort(403)
-    city = request.form["city"]
-    if not city or len(city) > 20:
+    municipality = request.form["municipality"]
+    if not municipality or len(municipality) > 20:
         abort(403)
     place = request.form["place"]
     if not place or len(place) > 50:
@@ -89,7 +89,7 @@ def create_item():
         abort(403)
     user_id = session["user_id"]
 
-    items.add_item(species, amount, place, city, description, user_id)
+    items.add_item(species, amount, place, municipality, description, user_id)
     return redirect("/")
 
 @app.route("/edit_item/<int:item_id>")
@@ -136,8 +136,8 @@ def update_item():
     amount = request.form["amount"]
     if not amount or not re.search("^[1-9][0-9]{0,9}$",amount):
         abort(403)
-    city = request.form["city"]
-    if not city or len(city) > 20:
+    municipality = request.form["municipality"]
+    if not municipality or len(municipality) > 20:
         abort(403)
     place = request.form["place"]
     if not place or len(place) > 50:
@@ -146,7 +146,7 @@ def update_item():
     if len(description) > 500:
         abort(403)
 
-    items.update_item(item_id, species, amount, place, city, description)
+    items.update_item(item_id, species, amount, place, municipality, description)
     return redirect("/item/" + str(item_id))
 
 @app.route("/register")

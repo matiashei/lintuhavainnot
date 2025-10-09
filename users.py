@@ -12,7 +12,7 @@ def get_user(user_id):
     return None
 
 def get_items(user_id):
-    sql = "SELECT id, species, amount, city FROM items WHERE user_id = ? ORDER BY id DESC"
+    sql = "SELECT id, species, amount, municipality FROM items WHERE user_id = ? ORDER BY id DESC"
     return db.query(sql, [user_id])
 
 def create_user(username, password):

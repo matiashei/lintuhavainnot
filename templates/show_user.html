@@ -13,7 +13,7 @@
     <h2>Havainnot</h2>
     <ul>
         {% for item in items %}
-        <li><a href="/item/{{ item.id }}">{{ item.species}}</a>, {{ item.amount }}kpl, {{ item.city }}</li>
+        <li><a href="/item/{{ item.id }}">{{ item.species}}</a>, {{ item.amount }}kpl, {{ item.municipality }}</li>
         {% endfor %}
     </ul>
     <p>

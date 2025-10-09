@@ -1,11 +1,11 @@
 import db
 
-def add_item(species, amount, place, city, description, user_id):
-    sql = "INSERT INTO items (species, amount, place, city, description, user_id) VALUES (?, ?, ?, ?, ?, ?)"
-    db.execute(sql, [species, amount, place, city, description, user_id])
+def add_item(species, amount, place, municipality, description, user_id):
+    sql = "INSERT INTO items (species, amount, place, municipality, description, user_id) VALUES (?, ?, ?, ?, ?, ?)"
+    db.execute(sql, [species, amount, place, municipality, description, user_id])
 
 def get_items():
-    sql = "SELECT id, species, city FROM items ORDER BY id DESC"
+    sql = "SELECT id, species, municipality FROM items ORDER BY id DESC"
     return db.query(sql)
 
 def get_item(item_id):
@@ -13,7 +13,7 @@ def get_item(item_id):
                     items.species,
                     items.amount,
                     items.place,
-                    items.city,
+                    items.municipality,
                     items.description,
                     users.id user_id,
                     users.username
@@ -25,14 +25,14 @@ def get_item(item_id):
         return result[0]
     return None
 
-def update_item(item_id, species, amount, place, city, description):
+def update_item(item_id, species, amount, place, municipality, description):
     sql = """UPDATE items SET species = ?,
                                 amount = ?,
                                 place = ?,
-                                city = ?,
+                                municipality = ?,
                                 description = ?
             WHERE id = ?"""
-    db.execute(sql, [species, amount, place, city, description, item_id])
+    db.execute(sql, [species, amount, place, municipality, description, item_id])
 
 def remove_item(item_id):
     sql = "DELETE FROM items WHERE id = ?"
@@ -41,7 +41,7 @@ def remove_item(item_id):
 def search_items(query):
     sql = """SELECT id, species
             FROM items
-            WHERE place LIKE ? OR city LIKE ? OR species LIKE ?
+            WHERE place LIKE ? OR municipality LIKE ? OR species LIKE ?
             ORDER BY id DESC"""
     like = "%" + query + "%"
     return db.query(sql, [like, like, like])
