@@ -113,12 +113,14 @@ def create_item():
 @app.route("/edit_item/<int:item_id>")
 def edit_item(item_id):
     require_login()
+    municipalities = get_municipalities()
+    species = get_species()
     item = items.get_item(item_id)
     if not item:
         abort(404)
     if item["user_id"] != session["user_id"]:
         abort(403)
-    return render_template("edit_item.html", item=item)
+    return render_template("edit_item.html", item=item, species=species, municipalities=municipalities)
 
 @app.route("/remove_item/<int:item_id>", methods=["GET","POST"])
 def remove_item(item_id):
@@ -151,6 +153,14 @@ def update_item():
     species = request.form["species"]
     if species not in get_species():
         abort(403)
+    date_str = request.form["date"]
+    try:
+        from datetime import datetime
+        date = datetime.strptime(date_str, "%Y-%m-%d").date()
+    except ValueError:
+        abort(403, "Virheellinen päivämäärä!")
+    if date > datetime.today().date():
+        abort(403, "Päivämäärä ei voi olla tulevaisuudessa!")
     amount = request.form["amount"]
     if not amount or not re.search("^[1-9][0-9]{0,9}$",amount):
         abort(403)
@@ -164,7 +174,7 @@ def update_item():
     if len(description) > 500:
         abort(403)
 
-    items.update_item(item_id, species, amount, place, municipality, description)
+    items.update_item(item_id, species, date, amount, place, municipality, description)
     return redirect("/item/" + str(item_id))
 
 @app.route("/register")
