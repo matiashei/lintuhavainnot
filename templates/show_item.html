@@ -1,12 +1,9 @@
-<!DOCTYPE html>
-<html>
+{% extends "layout.html" %}
 
-<head>
-  <title>{{ item.species }}</title>
-</head>
+{% block title %}{{ item.species }}{% endblock %}
 
-<body>
-    <h1>{{ item.species }}</h1>
+{% block content %}
+    <h2>{{ item.species }}</h2>
   {% if session.user_id ==item.user_id %}
   <p><a href="/edit_item/{{ item.id }}">Muokkkaa</a>  
     <a href="/remove_item/{{ item.id }}">Poista</a>
@@ -20,10 +17,5 @@
     <p>Havaintopaikka: {{item.place}}</p>
     <p>Kuvaus/kommentti: {{item.description}}</p>
     <br>
-    <p>Havainnon tekijä: <a href="/user/{{ item.user_id }}">{{item.username}}</a></p>
-    <br>
-    <a href="/">Takaisin etusivulle</a>
-
-</body>
-
-</html>
+    <p>Havainnon kirjasi: <a href="/user/{{ item.user_id }}">{{item.username}}</a></p>
+{% endblock %}

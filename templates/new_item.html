@@ -1,12 +1,9 @@
-<!DOCTYPE html>
-<html>
+{% extends "layout.html" %}
 
-<head>
-  <title>Uusi havainto</title>
-</head>
+{% block title %}Uusi havainto{% endblock %}
 
-<body>
-    <h1>Uusi havainto</h1>
+{% block content %}
+    <h2>Uusi havainto</h2>
   <form action="/create_item" method="post">
     <p>
       Laji: <br />
@@ -44,6 +41,4 @@
     </p>
     <input type="submit" value="Kirjaa havainto" />
   </form>
-</body>
-
-</html>
+{% endblock %}

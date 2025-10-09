@@ -1,17 +1,12 @@
-<!DOCTYPE html>
-<html>
+{% extends "layout.html" %}
 
-<head>
-  <title>Havainnon poistaminen</title>
-</head>
+{% block title %}Havainnon poistaminen{% endblock %}
 
-<body>
+{% block content %}
     <h1>Havainnon poistaminen</h1>
     <p>Haluatko poistaa ilmoituksen <b>{{ item.species }}</b>, {{ item.amount}} kpl, joka tehtiin kunnassa {{ item.city }}?</p>
   <form action="/remove_item/{{ item.id }}" method="post">
     <input type="submit" name="remove" value="Poista havainto">
     <input type="submit" name="back" value="Palaa takaisin">
 </form>
-</body>
-
-</html>
+{% endblock %}

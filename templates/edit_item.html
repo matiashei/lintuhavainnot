@@ -1,12 +1,9 @@
-<!DOCTYPE html>
-<html>
+{% extends "layout.html" %}
 
-<head>
-  <title>Havainnon muokkaaminen</title>
-</head>
+{% block title %}Naakka - lintuhavaintopalvelu{% endblock %}
 
-<body>
-    <h1>Havainnon muokkaaminen</h1>
+{% block content %}
+    <h2>Havainnon muokkaaminen</h2>
   <form action="/update_item" method="post">
     <p>
       Laji: <br />
@@ -45,6 +42,4 @@
     <input type="hidden" name="item_id" value="{{ item.id }}" />
     <input type="submit" value="Päivitä havainto" />
   </form>
-</body>
-
-</html>
+{% endblock %}

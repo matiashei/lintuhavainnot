@@ -1,12 +1,9 @@
-<!DOCTYPE html>
-<html>
+{% extends "layout.html" %}
 
-<head>
-  <title>Käyttäjä {{ user.username }}</title>
-</head>
+{% block title %}Naakka - lintuhavaintopalvelu{% endblock %}
 
-<body>
-    <h1>Käyttäjä {{ user.username }}</h1>
+{% block content %}
+    <h2>Käyttäjä: {{ user.username }}</h2>
     <p>
         Käyttäjä on kirjannut yhteensä {{ items | count }} havaintoa.
     </p>
@@ -16,9 +13,4 @@
         <li><a href="/item/{{ item.id }}">{{ item.species}}</a>, {{ item.amount }}kpl, {{ item.municipality }}</li>
         {% endfor %}
     </ul>
-    <p>
-    <a href="/">Takaisin etusivulle</a>
-    </p>
-</body>
-
-</html>
+{% endblock %}
