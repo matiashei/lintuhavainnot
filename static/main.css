@@ -2,5 +2,33 @@ body {
   margin: auto;
   max-width: 50em;
   font-family: sans-serif;
-  background-color: rgb(141, 209, 175);
+  background-color: rgb(141, 190, 209);
+}
+
+h1, h2, h3 {
+  color: #0e2b1f;
+  margin-bottom: 0.5em;
+}
+
+a {
+  color: #145e45;
+  text-decoration: none;
+  font-weight: 600;
+}
+
+a:hover {
+  text-decoration: underline;
+  color: #0b382a;
+}
+
+.nav-box a {
+  color: rgb(141, 190, 209);
+  background-color: #0e2b1f;
+  text-decoration: none;
+  font-weight: bold;
+  padding: 0,1em 2,0em;
+}
+
+.nav-box a:hover {
+  text-decoration: underline;
 }

@@ -10,26 +10,26 @@
   <a href="/"><h1>Naakka</h1></a>
 
   {% if session.username %}
-  <p>
+  <p class="user-info">
     Olet kirjautunut nimimerkillä {{ session.username }}
-    <br>
   </p>
   {% endif %}
 
-  <p>
-    <a href="/search_item">Etsi havaintoja</a> |
+  <nav class="nav-box">
+    <a href="/search_item">Etsi havaintoja</a>
 
-  {% if session.user_id %}
-    <a href="/new_item">Uusi havainto</a> |
-    <a href="/logout">Kirjaudu ulos</a>
-  {% else %}
-    <a href="/login">Kirjaudu sisään</a> |
-    <a href="/register">Luo käyttäjä</a>
-  {% endif %}
-  </p>
+    {% if session.user_id %}
+      <a href="/new_item">Uusi havainto</a>
+      <a href="/logout">Kirjaudu ulos</a>
+    {% else %}
+      <a href="/login">Kirjaudu sisään</a>
+      <a href="/register">Luo käyttäjä</a>
+    {% endif %}
+  </nav>
 
-  {% block content %}{% endblock %}
+  <main>
+    {% block content %}{% endblock %}
+  </main>
 
 </body>
-
 </html>
