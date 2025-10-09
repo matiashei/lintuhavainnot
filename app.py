@@ -7,6 +7,7 @@ import items
 import users
 import re
 import csv
+from datetime import datetime
 
 app = Flask(__name__)
 app.secret_key = config.secret_key
@@ -27,6 +28,15 @@ def show_user(user_id):
         abort(404)
     items = users.get_items(user_id)
     return render_template("show_user.html", user=user, items=items)
+
+def datetimeformat(value):
+    if not value:
+        return ""
+    try:
+        dt = datetime.strptime(value, "%Y-%m-%d")
+        return dt.strftime("%d.%m.%Y")
+    except ValueError:
+        return value
 
 
 @app.route("/search_item")
@@ -73,8 +83,16 @@ def get_municipalities(filename="municipalities.csv"):
 def create_item():
     require_login()    
     species = request.form["species"]
-    if not species or len(species) > 20:
-        abort(403)
+    if species not in get_species():
+        abort(403, "Lajin nimi ei kelpaa!")
+    date_str = request.form["date"]
+    try:
+        from datetime import datetime
+        date = datetime.strptime(date_str, "%Y-%m-%d").date()
+    except ValueError:
+        abort(403, "Virheellinen päivämäärä!")
+    if date > datetime.today().date():
+        abort(403, "Päivämäärä ei voi olla tulevaisuudessa!")
     amount = request.form["amount"]
     if not amount or not re.search("^[1-9][0-9]{0,9}$",amount):
         abort(403)
@@ -89,7 +107,7 @@ def create_item():
         abort(403)
     user_id = session["user_id"]
 
-    items.add_item(species, amount, place, municipality, description, user_id)
+    items.add_item(species, date, amount, place, municipality, description, user_id)
     return redirect("/")
 
 @app.route("/edit_item/<int:item_id>")
@@ -131,13 +149,13 @@ def update_item():
         abort(403)
 
     species = request.form["species"]
-    if not species or len(species) > 20:
+    if species not in get_species():
         abort(403)
     amount = request.form["amount"]
     if not amount or not re.search("^[1-9][0-9]{0,9}$",amount):
         abort(403)
     municipality = request.form["municipality"]
-    if not municipality or len(municipality) > 20:
+    if municipality not in get_municipalities():
         abort(403)
     place = request.form["place"]
     if not place or len(place) > 50:
@@ -192,3 +210,5 @@ def logout():
         del session["user_id"]
         del session["username"]
     return redirect("/")
+
+app.jinja_env.filters['datetimeformat'] = datetimeformat

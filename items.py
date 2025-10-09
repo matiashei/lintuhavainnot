@@ -1,16 +1,17 @@
 import db
 
-def add_item(species, amount, place, municipality, description, user_id):
-    sql = "INSERT INTO items (species, amount, place, municipality, description, user_id) VALUES (?, ?, ?, ?, ?, ?)"
-    db.execute(sql, [species, amount, place, municipality, description, user_id])
+def add_item(species, date, amount, place, municipality, description, user_id):
+    sql = "INSERT INTO items (species, date, amount, place, municipality, description, user_id) VALUES (?, ?, ?, ?, ?, ?, ?)"
+    db.execute(sql, [species, date, amount, place, municipality, description, user_id])
 
 def get_items():
-    sql = "SELECT id, species, municipality FROM items ORDER BY id DESC"
+    sql = "SELECT id, species, amount, municipality FROM items ORDER BY id DESC"
     return db.query(sql)
 
 def get_item(item_id):
     sql = """SELECT items.id,
                     items.species,
+                    items.date,
                     items.amount,
                     items.place,
                     items.municipality,
@@ -25,14 +26,15 @@ def get_item(item_id):
         return result[0]
     return None
 
-def update_item(item_id, species, amount, place, municipality, description):
+def update_item(item_id, species, date, amount, place, municipality, description):
     sql = """UPDATE items SET species = ?,
+                                date = ?,
                                 amount = ?,
                                 place = ?,
                                 municipality = ?,
                                 description = ?
             WHERE id = ?"""
-    db.execute(sql, [species, amount, place, municipality, description, item_id])
+    db.execute(sql, [species, date, amount, place, municipality, description, item_id])
 
 def remove_item(item_id):
     sql = "DELETE FROM items WHERE id = ?"

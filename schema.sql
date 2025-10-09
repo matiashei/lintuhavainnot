@@ -7,6 +7,7 @@ CREATE TABLE users (
 CREATE TABLE items (
     id INTEGER PRIMARY KEY,
     species TEXT,
+    date DATE,
     amount INTEGER,
     place TEXT,
     municipality TEXT,

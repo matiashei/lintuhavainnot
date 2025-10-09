@@ -17,7 +17,7 @@
   <h1>Viimeisimmät lintuhavainnot</h1>
   <ul>
       {% for item in items %}
-      <li><a href="/item/{{ item.id}}">{{ item.species }}</a></li>
+      <li><a href="/item/{{ item.id }}">{{ item.species }}</a>, {{ item.amount }}kpl, {{ item.municipality }}</li>
       {% endfor %}
   </ul>
 

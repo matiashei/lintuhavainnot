@@ -14,8 +14,9 @@
 
   {% endif %}
 
+    <p>Päivämäärä: {{ item.date | datetimeformat }}</p>
     <p>Määrä: {{item.amount}}</p>
-    <p>Kunta: {{item.municipality}}</p>
+    <p>Paikkakunta: {{item.municipality}}</p>
     <p>Havaintopaikka: {{item.place}}</p>
     <p>Kuvaus/kommentti: {{item.description}}</p>
     <br>
