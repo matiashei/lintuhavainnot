@@ -16,7 +16,7 @@
 
 <ul>
     {% for item in results %}
-    <li><a href="/item/{{ item.id }}">{{ item.species }}</a></li>
+    <li><a href="/item/{{ item.id }}">{{ item.species }}</a>, {{ item.amount }}kpl, {{ item.place }}</li>
     {% endfor %}
 </ul>
 {% endif %}
