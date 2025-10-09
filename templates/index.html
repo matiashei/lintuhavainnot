@@ -2,39 +2,38 @@
 <html>
 
 <head>
-  <title>Lintuhavainnot</title>
+  <title>Naakka - lintuhavaintopalvelu</title>
 </head>
 
 <body>
+  <h1>Naakka</h1>
+
+  {% if session.username %}
+  <p>
+    Olet kirjautunut nimimerkillä {{ session.username }}
+    <br>
+  </p>
+  {% endif %}
 
   <p>
-    {% if session.username %}
-    <a href="/new_item">Uusi havainto</a>
-    {% endif %}
-    <a href="/search_item">Etsi havaintoja</a>
+    <a href="/search_item">Etsi havaintoja</a> |
+
+  {% if session.user_id %}
+    <a href="/new_item">Uusi havainto</a> |
+    <a href="/logout">Kirjaudu ulos</a>
+  {% else %}
+    <a href="/login">Kirjaudu sisään</a> |
+    <a href="/register">Luo käyttäjä</a>
+  {% endif %}
+
   </p>
 
-  <h1>Viimeisimmät lintuhavainnot</h1>
+  <h2>Viimeisimmät lintuhavainnot</h2>
   <ul>
       {% for item in items %}
       <li><a href="/item/{{ item.id }}">{{ item.species }}</a>, {{ item.amount }}kpl, {{ item.municipality }}</li>
       {% endfor %}
   </ul>
-
-  {% if session.username %}
-  <p>
-    Olet kirjautunut nimimerkillä {{ session.username }}, käyttäjänumerosi on {{session.user_id}}
-    <br>
-    <a href="/logout">Kirjaudu ulos</a>
-  </p>
-  {% else %}
-  <p>
-    <a href="/login">Kirjaudu sisään</a>
-    <a href="/register">Luo käyttäjä</a>
-  </p>
-  {% endif %}
-
-
 
 </body>
 
