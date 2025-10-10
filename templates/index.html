@@ -13,7 +13,7 @@
         {% for item in items %}
           <li>
             <a href="/item/{{ item.id }}">{{ item.species }}</a>,
-            {{ item.amount }} kpl,
+            {{ item.amount }}kpl,
             {{ item.municipality }}
           </li>
         {% endfor %}
@@ -25,5 +25,18 @@
 {% else %}
   <p>Ei havaintoja.</p>
 {% endif %}
+
+{% if total_pages > 1 %}
+  <div class="pagination">
+    {% if page > 1 %}
+      <a href="/?page={{ page - 1 }}">« Edellinen</a>
+    {% endif %}
+
+    {% if page < total_pages %}
+      <a href="/?page={{ page + 1 }}">Seuraava »</a>
+    {% endif %}
+  </div>
+{% endif %}
+
 
 {% endblock %}

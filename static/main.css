@@ -3,7 +3,7 @@ body {
   max-width: 50em;
   font-family: sans-serif;
   background: linear-gradient(90deg, rgb(17, 18, 32) 0%, rgba(25, 27, 48, 1) 5%, rgba(25, 27, 48, 1) 95%, rgb(17, 18, 32) 100%);
-  color: #e0e3ff;
+  color: rgb(255, 255, 255);
 }
 
 header {

@@ -9,6 +9,8 @@ import re
 import csv
 from collections import defaultdict
 from datetime import datetime
+from math import ceil
+
 
 app = Flask(__name__)
 app.secret_key = config.secret_key
@@ -19,10 +21,19 @@ def require_login():
 
 @app.route("/")
 def index():
+    page = request.args.get("page", 1, type=int)
+    per_page = 20
+
     all_items = items.get_items()
+    total_count = len(all_items)
+    total_pages = ceil(total_count / per_page)
+
+    start = (page - 1) * per_page
+    end = start + per_page
+    paged_items = all_items[start:end]
 
     grouped = defaultdict(list)
-    for item in all_items:
+    for item in paged_items:
         formatted_date = datetime.strptime(item["date"], "%Y-%m-%d").strftime("%d.%m.%Y")
         grouped[formatted_date].append(item)
 
@@ -32,7 +43,12 @@ def index():
         reverse=True
     ))
 
-    return render_template("index.html", grouped=sorted_grouped)
+    return render_template(
+        "index.html",
+        grouped=sorted_grouped,
+        page=page,
+        total_pages=total_pages
+    )
 
 @app.route("/info")
 def info():
