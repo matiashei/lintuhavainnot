@@ -101,27 +101,27 @@ def create_item():
     require_login()    
     species = request.form["species"]
     if species not in get_species():
-        abort(403, "Lajin nimi ei kelpaa!")
+        return render_template("new_item.html", error="Lajin nimi ei kelpaa!")
     date_str = request.form["date"]
     try:
         from datetime import datetime
         date = datetime.strptime(date_str, "%Y-%m-%d").date()
     except ValueError:
-        abort(403, "Virheellinen päivämäärä!")
+        return render_template("new_item.html", error="Virheellinen päivämäärä!")
     if date > datetime.today().date():
-        abort(403, "Päivämäärä ei voi olla tulevaisuudessa!")
+        return render_template("new_item.html", error="Päivämäärä ei voi olla tulevaisuudessa!")
     amount = request.form["amount"]
     if not amount or not re.search("^[1-9][0-9]{0,9}$",amount):
-        abort(403)
+        return render_template("new_item.html", error="Määrä ei ole kelvollinen!")
     municipality = request.form["municipality"]
-    if not municipality or len(municipality) > 20:
-        abort(403)
+    if municipality not in get_municipalities():
+        return render_template("new_item.html", error="Paikkakunnan nimi ei kelpaa!")
     place = request.form["place"]
     if not place or len(place) > 50:
-        abort(403)
+        return render_template("new_item.html", error="Havaintopaikkaa ei ole kirjattu tai se on yli 50 merkkiä pitkä!")
     description = request.form["description"]
     if len(description) > 500:
-        abort(403)
+        return render_template("new_item.html", error="Kuvaus on liian pitkä!")
     user_id = session["user_id"]
 
     items.add_item(species, date, amount, place, municipality, description, user_id)
@@ -169,27 +169,27 @@ def update_item():
 
     species = request.form["species"]
     if species not in get_species():
-        abort(403)
+        return render_template("new_item.html", error="Lajin nimi ei kelpaa!")
     date_str = request.form["date"]
     try:
         from datetime import datetime
         date = datetime.strptime(date_str, "%Y-%m-%d").date()
     except ValueError:
-        abort(403, "Virheellinen päivämäärä!")
+        return render_template("new_item.html", error="Virheellinen päivämäärä!")
     if date > datetime.today().date():
-        abort(403, "Päivämäärä ei voi olla tulevaisuudessa!")
+        return render_template("new_item.html", error="Päivämäärä ei voi olla tulevaisuudessa!")
     amount = request.form["amount"]
     if not amount or not re.search("^[1-9][0-9]{0,9}$",amount):
-        abort(403)
+        return render_template("new_item.html", error="Määrä ei ole kelvollinen!")
     municipality = request.form["municipality"]
     if municipality not in get_municipalities():
-        abort(403)
+        return render_template("new_item.html", error="Paikkakunnan nimi ei kelpaa!")
     place = request.form["place"]
     if not place or len(place) > 50:
-        abort(403)
+        return render_template("new_item.html", error="Havaintopaikkaa ei ole kirjattu tai se on yli 50 merkkiä pitkä!")
     description = request.form["description"]
     if len(description) > 500:
-        abort(403)
+        return render_template("new_item.html", error="Kuvaus on liian pitkä!")
 
     items.update_item(item_id, species, date, amount, place, municipality, description)
     return redirect("/item/" + str(item_id))
@@ -204,13 +204,11 @@ def create():
     password1 = request.form["password1"]
     password2 = request.form["password2"]
     if password1 != password2:
-        return "VIRHE: salasanat eivät ole samat"
-    
+        return render_template("register.html", error="Salasanat eivät ole samat!")    
     try:
         users.create_user(username, password1)
     except sqlite3.IntegrityError:
-        return "VIRHE: tunnus on jo varattu"
-
+        return render_template("register.html", error="Tunnus on jo varattu!")
     return "Tunnus luotu"
 
 @app.route("/login", methods=["GET", "POST"])
@@ -229,7 +227,7 @@ def login():
         session["username"] = username
         return redirect("/")
     else:
-        return "VIRHE: väärä tunnus tai salasana"
+        return render_template("login.html", error="Väärä tunnus tai salasana!")
 
 @app.route("/logout")
 def logout():

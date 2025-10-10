@@ -4,6 +4,11 @@
 
 {% block content %}
 <h2>Kirjaudu sisään</h2>
+
+  {% if error %}
+    <div class="error-box">{{ error }}</div>
+  {% endif %}
+  
   {% if session.username %}
   <p>
     Olet kirjautunut nimellä {{ session.username }}

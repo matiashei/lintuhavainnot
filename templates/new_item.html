@@ -4,6 +4,9 @@
 
 {% block content %}
     <h2>Uusi havainto</h2>
+  {% if error %}
+    <div class="error-box">{{ error }}</div>
+  {% endif %}
   <form action="/create_item" method="post">
     <p>
       Laji: <br />
