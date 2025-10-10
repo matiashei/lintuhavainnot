@@ -3,7 +3,7 @@
 {% block title %}Etsi havaintoja{% endblock %}
 
 {% block content %}
-<h2>Etsi havaintoja</h2>
+<p>Voit etsiä havaintoja esimerkiksi lajin tai havaintopaikan perusteella.</p>
 <form action="/search_item" method="GET" >
     <p>
         Hakusana: <input type ="text" name="query" value="{{ query }}" >
@@ -16,7 +16,7 @@
 
 <ul>
     {% for item in results %}
-    <li><a href="/item/{{ item.id }}">{{ item.species }}</a>, {{ item.amount }}kpl, {{ item.place }}</li>
+    <li><a href="/item/{{ item.id }}">{{ item.species }}</a> ({{ item.amount }}kpl) paikassa {{ item.place }}, {{ item.municipality }}</li>
     {% endfor %}
 </ul>
 {% endif %}

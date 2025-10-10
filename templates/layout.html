@@ -25,9 +25,11 @@
 
     {% if session.user_id %}
       <a href="/new_item">Uusi havainto</a>
+      <a href="/info">Tietoa sovelluksesta</a>
       <a href="/logout">Kirjaudu ulos</a>
     {% else %}
       <a href="/login">Kirjaudu sisään</a>
+      <a href="/info">Tietoa sovelluksesta</a>
       <a href="/register">Luo käyttäjä</a>
     {% endif %}
   </nav>

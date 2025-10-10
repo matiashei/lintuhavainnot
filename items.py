@@ -41,7 +41,7 @@ def remove_item(item_id):
     db.execute(sql, [item_id])
 
 def search_items(query):
-    sql = """SELECT id, species, amount, place
+    sql = """SELECT id, species, amount, municipality, place
             FROM items
             WHERE place LIKE ? OR municipality LIKE ? OR species LIKE ?
             ORDER BY date DESC, id DESC"""

@@ -34,6 +34,10 @@ def index():
 
     return render_template("index.html", grouped=sorted_grouped)
 
+@app.route("/info")
+def info():
+    return render_template("info.html")
+
 @app.route("/user/<int:user_id>")
 def show_user(user_id):
     user = users.get_user(user_id)
