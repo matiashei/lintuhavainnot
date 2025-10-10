@@ -2,7 +2,7 @@ body {
   margin: auto;
   max-width: 50em;
   font-family: sans-serif;
-  background: linear-gradient(90deg, rgb(17, 18, 32) 0%, rgba(25, 27, 48, 1) 5%, rgba(25, 27, 48, 1) 95%, rgb(17, 18, 32) 100%);
+  background: rgba(25, 27, 48, 1);
   color: rgb(255, 255, 255);
 }
 
@@ -25,9 +25,14 @@ header {
   align-items: center;
 }
 
-h1, h2, h3 {
+h1, h2, {
   color: #ffffff;
   margin-bottom: 0.5em;
+}
+
+h3 {
+  color: #ffffff;
+  margin-bottom: 0;
 }
 
 a {
@@ -61,4 +66,8 @@ a:hover {
 
 p, li {
   color: #d0d3eb;
+}
+
+ul {
+    margin-top: 3px;
 }

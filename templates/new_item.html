@@ -9,7 +9,7 @@
   {% endif %}
   <form action="/create_item" method="post">
     <p>
-      Laji: <br />
+      Laji*: <br />
       <input list="species" name="species" required />
       <datalist id="species">
         {% for specie in species %}
@@ -18,15 +18,15 @@
       </datalist>
     </p>
     <p>
-    Päivämäärä: <br />
+    Päivämäärä*: <br />
     <input type="date" name="date" required>
     </p>
     <p>
-        Lukumäärä <br />
+        Lukumäärä*: <br />
       <input type="text" name="amount" size="8" pattern="[1-9][0-9]{0,9}" required /> kpl
     </p> 
     <p>
-      Paikkakunta: <br />
+      Paikkakunta*: <br />
       <input list="municipalities" name="municipality" required />
       <datalist id="municipalities">
         {% for municipality in municipalities %}
@@ -35,13 +35,14 @@
       </datalist>
     </p>
     <p>
-        Havaintopaikka <br />
+        Havaintopaikka*: <br />
       <input type="text" name="place" maxlength="50" required />
     </p>
     <p>
         Kuvaus: <br />
     <textarea name="description" rows="8" cols="40" maxlength="400"></textarea>
     </p>
-    <input type="submit" value="Kirjaa havainto" />
+    <input type="submit" value="Lähetä havainto" />
   </form>
+  <p>* = pakollinen tieto</p>
 {% endblock %}

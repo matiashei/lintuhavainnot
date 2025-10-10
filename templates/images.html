@@ -1,0 +1,17 @@
+{% extends "layout.html" %}
+
+{% block title %}Havaintokuvat{% endblock %}
+
+{% block content %}
+    <h2>Havaintokuvat</h2>
+
+    <h3>Lisää uusi kuva</h3>
+    <form action="/add_image" method="post" enctype="multipart/form-data">
+        <p>
+        Kuva: <input type="file" name="image" accept=".jpg" />
+        </p>
+        <input type="hidden" name="item_id" value="{{ item.id }}">
+        <input type="submit" value="Lähetä" />
+    </form>    
+    <a href="/item/{{ item.id }}">« Takaisin havaintoon</a>
+{% endblock %}

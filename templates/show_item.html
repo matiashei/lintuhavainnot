@@ -5,11 +5,17 @@
 {% block content %}
     <h2>{{ item.species }}</h2>
   {% if session.user_id ==item.user_id %}
-  <p><a href="/edit_item/{{ item.id }}">Muokkkaa</a> |  
+  <p>
+    <a href="/images/{{ item.id }}">Kuvat</a> |
+    <a href="/edit_item/{{ item.id }}">Muokkkaa</a> |  
     <a href="/remove_item/{{ item.id }}">Poista</a>
     </p>
 
   {% endif %}
+
+  {% for image in images %}
+  <img src="/image/{{ image.id }}"
+  {% endfor %} <br>
 
     <p>Päivämäärä: {{ item.date | datetimeformat }}</p>
     <p>Määrä: {{item.amount}}kpl</p>
