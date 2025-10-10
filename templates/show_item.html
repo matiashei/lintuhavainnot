@@ -5,17 +5,19 @@
 {% block content %}
     <h2>{{ item.species }}</h2>
   {% if session.user_id ==item.user_id %}
-  <p><a href="/edit_item/{{ item.id }}">Muokkkaa</a>  
+  <p><a href="/edit_item/{{ item.id }}">Muokkkaa</a> |  
     <a href="/remove_item/{{ item.id }}">Poista</a>
     </p>
 
   {% endif %}
 
     <p>Päivämäärä: {{ item.date | datetimeformat }}</p>
-    <p>Määrä: {{item.amount}}</p>
+    <p>Määrä: {{item.amount}}kpl</p>
     <p>Paikkakunta: {{item.municipality}}</p>
     <p>Havaintopaikka: {{item.place}}</p>
+    {% if item.description %}
     <p>Kuvaus/kommentti: {{item.description}}</p>
+    {% endif %}
     <br>
     <p>Havainnon kirjasi: <a href="/user/{{ item.user_id }}">{{item.username}}</a></p>
 {% endblock %}

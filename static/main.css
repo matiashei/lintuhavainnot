@@ -2,33 +2,63 @@ body {
   margin: auto;
   max-width: 50em;
   font-family: sans-serif;
-  background-color: rgb(141, 190, 209);
+  background: linear-gradient(90deg, rgb(17, 18, 32) 0%, rgba(25, 27, 48, 1) 5%, rgba(25, 27, 48, 1) 95%, rgb(17, 18, 32) 100%);
+  color: #e0e3ff;
+}
+
+header {
+  margin-top: 20px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.logo {
+  height: 60px;
+  width: auto;
+}
+
+.logo-link {
+  text-decoration: none;
+  color: inherit;
+  display: flex;
+  align-items: center;
 }
 
 h1, h2, h3 {
-  color: #0e2b1f;
+  color: #ffffff;
   margin-bottom: 0.5em;
 }
 
 a {
-  color: #145e45;
+  color: #68d6b0;
   text-decoration: none;
   font-weight: 600;
+  transition: color 0.2s ease;
 }
 
 a:hover {
   text-decoration: underline;
-  color: #0b382a;
+  color: #45b892;
 }
 
 .nav-box a {
-  color: rgb(141, 190, 209);
-  background-color: #0e2b1f;
+  color: #e3f6ff;
+  background-color: #20344d;
+  border-radius: 6px;
   text-decoration: none;
   font-weight: bold;
-  padding: 0,1em 2,0em;
+  padding: 0.4em 1.2em;
+  display: inline-block;
+  transition: background-color 0.2s ease, color 0.2s ease;
 }
 
 .nav-box a:hover {
-  text-decoration: underline;
+  background-color: #2e4c6d;
+  color: #ffffff;
+  text-decoration: none;
+}
+
+p, li {
+  color: #d0d3eb;
 }
