@@ -9,6 +9,7 @@
 * Käyttäjä pystyy etsimään havaintoja hakusanalla lajin tai havaintopaikan perusteella.
 * Sovelluksessa on käyttäjäsivut, jotka näyttävät tilastoja ja käyttäjän lisäämät havainnot.
 * Käyttäjä pystyy kommentoimaan havaintoja esimerkiksi tilanteessa, jossa havainto on epävarma ja toinen käyttäjä tarvitsee apua sen varmistamiseksi.*
+* Havainnot listataan etusivulle 15 ryhmiin sivutettuina ensisijaisesti päivämäärän ja toissijaisesti havainnon id-numeron perusteella.
 
 ## Sovelluksen asennus
 
