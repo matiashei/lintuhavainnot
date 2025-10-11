@@ -6,9 +6,15 @@ body {
   color: #ffffff;
 }
 
+.user-info {
+  position: fixed;
+  top: 5px;
+  right: 20px;
+}
+
 .theme-toggle-fixed {
   position: fixed;
-  top: 15px;
+  top: 65px;
   right: 20px;
   display: flex;
   align-items: center;
@@ -31,6 +37,7 @@ header {
 .logo {
   height: 60px;
   width: auto;
+  margin-bottom: 20px;
 }
 
 h1, h2, {

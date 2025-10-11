@@ -21,7 +21,7 @@ def require_login():
 
 @app.route("/theme")
 def theme():
-    current = session.get("theme", "dark")
+    current = session.get("theme")
     new = "light" if current == "dark" else "dark"
     session["theme"] = new
     return redirect(request.referrer or "/")
