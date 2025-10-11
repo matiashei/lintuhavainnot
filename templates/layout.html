@@ -6,10 +6,15 @@
   <link rel="stylesheet" href="/static/main.css">
 </head>
 
-<body>
+<body class="{{ session.get("theme", "dark") }}-mode">
+
   <header>
     <a href="/">
-      <img src="{{ url_for('static', filename='images/sitelogo.svg') }}" alt="Naakka logo" class="logo">
+        {% if session.get("theme", "dark") == "dark" %}
+      <img src="{{ url_for("static", filename="images/sitelogo.svg") }}" alt="Naakka logo" class="logo">
+        {% else %}
+      <img src="{{ url_for("static", filename="images/sitelogo_light.svg") }}" alt="Naakka logo" class="logo">
+        {% endif %}
     </a>
   </header>
 
@@ -32,7 +37,18 @@
       <a href="/login">Kirjaudu sisään</a>
       <a href="/register">Luo käyttäjä</a>
     {% endif %}
-  </nav>
+    </nav>
+      <a href="/theme" class="theme-toggle-fixed">
+
+        {% if session.get("theme", "dark") == "dark" %}
+        Vaalea teema
+      <img src="{{ url_for("static", filename="images/theme-selector_dark.svg") }}" alt="Vaihda vaaleaan teemaan" class="theme-icon">
+        {% else %}
+        Tumma teema
+      <img src="{{ url_for("static", filename="images/theme-selector_light.svg") }}" alt="Vaihda tummaan teemaan" class="theme-icon">
+        {% endif %}
+      </a>
+
 
   <main>
     {% block content %}{% endblock %}

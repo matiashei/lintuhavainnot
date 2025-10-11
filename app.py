@@ -19,6 +19,13 @@ def require_login():
     if "user_id" not in session:
         abort(403)
 
+@app.route("/theme")
+def theme():
+    current = session.get("theme", "dark")
+    new = "light" if current == "dark" else "dark"
+    session["theme"] = new
+    return redirect(request.referrer or "/")
+
 @app.route("/")
 def index():
     page = request.args.get("page", 1, type=int)
@@ -62,15 +69,10 @@ def show_user(user_id):
     items = users.get_items(user_id)
     return render_template("show_user.html", user=user, items=items)
 
+@app.template_filter("datetimeformat")
 def datetimeformat(value):
-    if not value:
-        return ""
-    try:
-        dt = datetime.strptime(value, "%Y-%m-%d")
-        return dt.strftime("%d.%m.%Y")
-    except ValueError:
-        return value
-
+    value = datetime.strptime(value, "%Y-%m-%d")
+    return value.strftime("%d.%m.%Y")
 
 @app.route("/search_item")
 def search_item():
@@ -144,7 +146,7 @@ def new_item():
 def get_species(filename="species.csv"):
     species = []
     with open(filename, newline="", encoding="utf-8") as csvfile:
-        reader = csv.DictReader(csvfile, delimiter=';')
+        reader = csv.DictReader(csvfile, delimiter=";")
         for row in reader:
             species.append(row["classificationName"])
     return species
@@ -152,7 +154,7 @@ def get_species(filename="species.csv"):
 def get_municipalities(filename="municipalities.csv"):
     municipalities = []
     with open(filename, newline="", encoding="utf-8") as csvfile:
-        reader = csv.DictReader(csvfile, delimiter=';')
+        reader = csv.DictReader(csvfile, delimiter=";")
         for row in reader:
             municipalities.append(row["classificationName"])
     return municipalities
@@ -295,5 +297,3 @@ def logout():
         del session["user_id"]
         del session["username"]
     return redirect("/")
-
-app.jinja_env.filters['datetimeformat'] = datetimeformat

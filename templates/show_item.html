@@ -14,8 +14,10 @@
   {% endif %}
 
   {% for image in images %}
-  <img src="/image/{{ image.id }}"
-  {% endfor %} <br>
+  <img src="/image/{{ image.id }}">
+  {% endfor %}
+
+  {% if image %} <br> {% endif %}
 
     <p>Päivämäärä: {{ item.date | datetimeformat }}</p>
     <p>Määrä: {{item.amount}}kpl</p>
