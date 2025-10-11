@@ -7,7 +7,6 @@
 </head>
 
 <body class="{{ session.get("theme") }}-mode">
-
   <header>
     <a href="/">
         {% if session.get("theme", "dark") == "dark" %}
@@ -53,6 +52,7 @@
   <main>
     {% block content %}{% endblock %}
   </main>
+
 
 </body>
 </html>
