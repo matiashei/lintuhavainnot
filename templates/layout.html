@@ -20,7 +20,7 @@
 
   {% if session.username %}
   <p class="user-info">
-    Olet kirjautunut nimimerkillä {{ session.username }}
+    Olet kirjautunut nimimerkillä <a href="/user/{{ session["user_id"] }}">{{ session ["username"] }}</a>
   </p>
   {% endif %}
 
@@ -47,7 +47,6 @@
       <img src="{{ url_for("static", filename="images/theme-selector_light.svg") }}" alt="Vaihda tummaan teemaan" class="theme-icon">
         {% endif %}
       </a>
-
 
   <main>
     {% block content %}{% endblock %}

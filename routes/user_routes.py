@@ -1,11 +1,18 @@
 from app import app
 from flask import Flask
-from flask import abort, make_response, redirect, render_template, request, session
+import secrets
+from flask import abort, redirect, render_template, request, session
 import sqlite3
 import users
 
 def require_login():
     if "user_id" not in session:
+        abort(403)
+
+def check_csrf():
+    if "crsf_token" not in request.form:
+        abort[403]
+    if request.form["csrf_token"] != session["csrf_token"]:
         abort(403)
 
 @app.route("/user/<int:user_id>")
@@ -31,7 +38,7 @@ def create():
         users.create_user(username, password1)
     except sqlite3.IntegrityError:
         return render_template("register.html", error="Tunnus on jo varattu!")
-    return "Tunnus luotu"
+    return render_template("login.html", error="Tunnus luotu onnistuneesti!")
 
 @app.route("/login", methods=["GET", "POST"])
 def login():
@@ -47,6 +54,7 @@ def login():
     if user_id:
         session["user_id"] = user_id
         session["username"] = username
+        session["csrf_token"] = secrets.token_hex(16)
         return redirect("/")
     else:
         return render_template("login.html", error="Väärä tunnus tai salasana!")

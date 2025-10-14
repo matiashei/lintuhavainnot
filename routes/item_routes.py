@@ -4,7 +4,7 @@ import re
 import csv
 import items
 from datetime import datetime
-from routes.user_routes import require_login
+from routes.user_routes import require_login, check_csrf
 
 @app.route("/search_item")
 def search_item():
@@ -49,6 +49,7 @@ def edit_images(item_id):
 @app.route("/add_image", methods=["POST"])
 def add_image():
     require_login()
+    check_csrf()
 
     item_id = request.form["item_id"]
     item = items.get_item(item_id)
@@ -93,13 +94,14 @@ def get_municipalities(filename="municipalities.csv"):
 
 @app.route("/create_item", methods=["POST"])
 def create_item():
-    require_login()    
+    require_login()
+    check_csrf()
+
     species = request.form["species"]
     if species not in get_species():
         return render_template("new_item.html", error="Lajin nimi ei kelpaa!")
     date_str = request.form["date"]
     try:
-        from datetime import datetime
         date = datetime.strptime(date_str, "%Y-%m-%d").date()
     except ValueError:
         return render_template("new_item.html", error="Virheellinen päivämäärä!")
@@ -137,6 +139,7 @@ def edit_item(item_id):
 @app.route("/remove_item/<int:item_id>", methods=["GET","POST"])
 def remove_item(item_id):
     require_login()
+
     item = items.get_item(item_id)
     if not item:
         abort(404)
@@ -145,6 +148,7 @@ def remove_item(item_id):
     if request.method == "GET":
         return render_template("remove_item.html", item=item)
     if request.method == "POST":
+        check_csrf()
         if "remove" in request.form:
             items.remove_item(item_id)
             return redirect("/")
@@ -154,6 +158,8 @@ def remove_item(item_id):
 @app.route("/update_item", methods=["POST"])
 def update_item():
     require_login()
+    check_csrf()
+
     item_id = request.form["item_id"]
     if not item_id:
         abort(404)
