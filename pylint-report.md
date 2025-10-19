@@ -1,7 +1,6 @@
 
 ```
 ************* Module app
-app.py:7:0: C0304: Final newline missing (missing-final-newline)
 app.py:1:0: C0114: Missing module docstring (missing-module-docstring)
 app.py:7:0: C0413: Import "from routes import main_routes, item_routes, user_routes" should be placed at the top of the module (wrong-import-position)
 app.py:7:0: W0611: Unused main_routes imported from routes (unused-import)
@@ -100,7 +99,7 @@ items.py:74:0: C0116: Missing function or method docstring (missing-function-doc
 items.py:81:0: C0116: Missing function or method docstring (missing-function-docstring)
 items.py:86:0: C0116: Missing function or method docstring (missing-function-docstring)
 
------------------------------------
-Your code has been rated at 7.02/10
+------------------------------------------------------------------
+Your code has been rated at 7.05/10 (previous run: 7.02/10, +0.03)
 
 ```
