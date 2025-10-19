@@ -19,23 +19,25 @@
 
   {% if image %} <br> {% endif %}
 
-    <p>Päivämäärä: {{ item.date | datetimeformat }}</p>
-    <p>Määrä: {{item.amount}}kpl</p>
-    <p>Paikkakunta: {{item.municipality}}</p>
-    <p>Havaintopaikka: {{item.place}}</p>
-    {% if item.description %}
-    <p>Kuvaus: {{item.description}}</p>
+    <p><b>Päivämäärä:</b> {{ item.date | datetimeformat }}</p>
+    <p><b>Määrä:</b> {{item.amount}}kpl</p>
+    <p><b>Paikkakunta:</b> {{item.municipality}}</p>
+    <p><b>Havaintopaikka:</b> {{item.place}}</p>
+    {% if item.description %} <br>
+    <p><b>Kuvaus:</b></p>
+    <p>{{item.description | replace('\n', '<br>') | safe }}</p>
     {% endif %}
     <br>
-    <p>Havainnon kirjasi: <a href="/user/{{ item.user_id }}">{{item.username}}</a></p>
+    <p><b>Havainnon kirjasi:</b> <a href="/user/{{ item.user_id }}">{{item.username}}</a></p>
     
     <h3>Kommentit:</h3>
     <ul class="comment-list">
       {% for comment in comments %}
         <li class="comment_box">
-          <a href="/user/{{ comment.user_id }}">{{ comment.username }}</a> | {{ comment.comment }}
-          {% if session.user_id == comment.user_id %} |
-            <a href="/remove_comment/{{ comment.id }}">Poista kommentti</a>
+          <a href="/user/{{ comment.user_id }}">{{ comment.username }}</a>
+          <p>{{ comment.comment  | replace('\n', '<br>') | safe }}</p>
+          {% if session.user_id == comment.user_id %}
+            <p><a href="/remove_comment/{{ comment.id }}">Poista kommentti</a></p>
           {% endif %}
 
         </li>
