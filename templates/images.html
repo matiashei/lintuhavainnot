@@ -4,6 +4,15 @@
 
 {% block content %}
     <h2>Havaintokuvat</h2>
+    <form action="/remove_images" method="post">
+        {% for image in images %}
+            <img src="/image/{{ image.id }}" />
+            <input type="checkbox" name="image_id" value="{{ image.id }}"><br>
+        {% endfor %}
+        <input type="hidden" name="item_id" value="{{ item.id }}">
+        <p><input type="submit" value="Poista valitut" /></p>
+        <input type="hidden" name="csrf_token" value="{{ session.csrf_token }}" />
+    </form>
 
     <h3>Lisää uusi kuva</h3>
     <form action="/add_image" method="post" enctype="multipart/form-data">
@@ -11,7 +20,7 @@
         Kuva: <input type="file" name="image" accept=".jpg" />
         </p>
         <input type="hidden" name="item_id" value="{{ item.id }}">
-        <input type="submit" value="Lähetä" />
+        <p><input type="submit" value="Lähetä" /></p>
         <input type="hidden" name="csrf_token" value="{{ session.csrf_token }}" />
     </form>    
     <a href="/item/{{ item.id }}">« Takaisin havaintoon</a>
