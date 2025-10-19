@@ -1,7 +1,6 @@
 # Lintuhavainnot
 
-## Sovelluksen toiminnot (tähdellä merkatut ovat vielä toteuttamatta)
-
+## Sovelluksen toiminnot
 * Käyttäjä pystyy luomaan tunnuksen ja kirjautumaan sisään sovellukseen.
 * Käyttäjä pystyy lisäämään, muokkaamaan ja poistamaan lintuhavaintoja. Tämän lisäksi käyttäjä voi merkata sovellukseen paikan, jossa havainto on tehty, havaintopäivän ja kommenttina esimerkiksi havainnon varmuuden sekä lisäämään jpg-kuvia havainnostaan.
 * Käyttäjä näkee sovellukseen lisätyt havainnot.
