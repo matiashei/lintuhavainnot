@@ -1,7 +1,8 @@
 import db
 
 def add_item(species, date, amount, place, municipality, description, user_id):
-    sql = "INSERT INTO items (species, date, amount, place, municipality, description, user_id) VALUES (?, ?, ?, ?, ?, ?, ?)"
+    sql = """INSERT INTO items (species, date, amount, place, municipality,
+                        description, user_id) VALUES (?, ?, ?, ?, ?, ?, ?)"""
     db.execute(sql, [species, date, amount, place, municipality, description, user_id])
 
 def get_items():
@@ -60,3 +61,15 @@ def search_items(query):
             ORDER BY date DESC, id DESC"""
     like = "%" + query + "%"
     return db.query(sql, [like, like, like])
+
+def add_comment(item_id, user_id, comment):
+    sql = """INSERT INTO comments (item_id, user_id, comment)
+            VALUES (?, ?,? )"""
+    db.execute(sql, [item_id, user_id, comment])
+
+def get_comments(item_id):
+    sql = """SELECT comments.comment, users.id user_id, users.username
+            FROM comments, users
+            WHERE comments.item_id = ? AND comments.user_id = users.id
+            ORDER BY comments.id DESC"""
+    return db.query(sql, [item_id])

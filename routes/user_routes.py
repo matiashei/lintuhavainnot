@@ -10,8 +10,8 @@ def require_login():
         abort(403)
 
 def check_csrf():
-    if "crsf_token" not in request.form:
-        abort[403]
+    if "csrf_token" not in request.form:
+        abort(403)
     if request.form["csrf_token"] != session["csrf_token"]:
         abort(403)
 

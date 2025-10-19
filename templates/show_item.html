@@ -24,8 +24,25 @@
     <p>Paikkakunta: {{item.municipality}}</p>
     <p>Havaintopaikka: {{item.place}}</p>
     {% if item.description %}
-    <p>Kuvaus/kommentti: {{item.description}}</p>
+    <p>Kuvaus: {{item.description}}</p>
     {% endif %}
     <br>
     <p>Havainnon kirjasi: <a href="/user/{{ item.user_id }}">{{item.username}}</a></p>
+    
+    <h3>Kommentit:</h3>
+    <ul>
+      {% for comment in comments %}
+      <li>{{ comment.comment }}, <a href="/user/{{ comment.user_id }}"> <br>
+          {{ comment.username }}</a></li>
+      {% endfor %}
+    </ul>
+
+    <h3>Uusi kommentti:</h3>
+    <form action="/create_comment" method="post">
+      <input type="text" name="comment" rows="8" cols="40" maxlength="400" required> <br>
+      <input type="hidden" name="item_id" value="{{ item.id }}">
+      <input type="hidden" name="csrf_token" value="{{ session.csrf_token }}" />
+      <input type="submit" value="Lähetä kommentti" />
+
+    </form>
 {% endblock %}

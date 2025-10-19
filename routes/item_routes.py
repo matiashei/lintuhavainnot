@@ -1,3 +1,4 @@
+from tokenize import Comment
 from app import app
 from flask import abort, make_response, redirect, render_template, request, session
 import re
@@ -22,7 +23,8 @@ def show_item(item_id):
     if not item:
         abort(404)
     images = items.get_images(item_id)
-    return render_template("show_item.html", item=item, images=images)
+    comments = items.get_comments(item_id)
+    return render_template("show_item.html", item=item, images=images, comments=comments)
 
 @app.route("/image/<int:image_id>")
 def show_image(image_id):
@@ -123,6 +125,21 @@ def create_item():
 
     items.add_item(species, date, amount, place, municipality, description, user_id)
     return redirect("/")
+
+@app.route("/create_comment", methods=["POST"])
+def create_comment():
+    require_login()
+    check_csrf()
+    
+    comment = request.form["comment"]
+    item_id = request.form["item_id"]
+    item = items.get_item(item_id)
+    if not item:
+        abort(403)
+    user_id = session["user_id"]
+
+    items.add_comment(item_id, user_id, comment)
+    return redirect("/item/" + str(item_id))
 
 @app.route("/edit_item/<int:item_id>")
 def edit_item(item_id):
