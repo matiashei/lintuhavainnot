@@ -68,8 +68,19 @@ def add_comment(item_id, user_id, comment):
     db.execute(sql, [item_id, user_id, comment])
 
 def get_comments(item_id):
-    sql = """SELECT comments.comment, users.id user_id, users.username
+    sql = """SELECT comments.id, comments.comment, users.id user_id, users.username
             FROM comments, users
             WHERE comments.item_id = ? AND comments.user_id = users.id
             ORDER BY comments.id DESC"""
     return db.query(sql, [item_id])
+
+def get_comment(comment_id):
+    sql = "SELECT id, item_id, user_id, comment FROM comments WHERE id = ?"
+    result = db.query(sql, [comment_id])
+    if result:
+        return result[0]
+    return None
+
+def remove_comment(comment_id):
+    sql = "DELETE FROM comments WHERE id = ?"
+    db.execute(sql, [comment_id])

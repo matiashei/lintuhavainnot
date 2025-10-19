@@ -34,6 +34,10 @@
       {% for comment in comments %}
         <li class="comment_box">
           <a href="/user/{{ comment.user_id }}">{{ comment.username }}</a> | {{ comment.comment }}
+          {% if session.user_id == comment.user_id %} |
+            <a href="/remove_comment/{{ comment.id }}">Poista kommentti</a>
+          {% endif %}
+
         </li>
       {% endfor %}
     </ul>
@@ -51,7 +55,7 @@
 
     <h3>Uusi kommentti:</h3>
     <form action="/create_comment" method="post">
-      <input type="text" name="comment" rows="8" cols="40" maxlength="400" required> <br>
+      <textarea name="comment" rows="4" cols="50" maxlength="400" required></textarea><br>
       <input type="hidden" name="item_id" value="{{ item.id }}">
       <input type="hidden" name="csrf_token" value="{{ session.csrf_token }}" />
       <input type="submit" value="Lähetä kommentti" />

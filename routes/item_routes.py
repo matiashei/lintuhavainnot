@@ -1,4 +1,3 @@
-from tokenize import Comment
 from app import app
 from flask import abort, make_response, redirect, render_template, request, session
 import re
@@ -39,6 +38,27 @@ def show_item(item_id):
                            item=item, images=images, 
                            comments=paged_comments,page=page, 
                            total_pages=total_pages)
+
+@app.route("/remove_comment/<int:comment_id>", methods=["GET","POST"])
+def remove_comment(comment_id):
+    require_login()
+
+    comment = items.get_comment(comment_id)
+    if not comment:
+        abort(404)
+
+    if comment["user_id"] != session["user_id"]:
+        abort(403)
+
+    if request.method == "GET":
+        item = items.get_item(comment["item_id"])
+        return render_template("remove_comment.html", comment=comment, item=item)
+
+    if request.method == "POST":
+        check_csrf()
+        if "remove" in request.form:
+            items.remove_comment(comment_id)
+        return redirect("/item/" + str(comment["item_id"]))
 
 @app.route("/image/<int:image_id>")
 def show_image(image_id):

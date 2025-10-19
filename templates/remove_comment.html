@@ -1,0 +1,18 @@
+{% extends "layout.html" %}
+
+{% block title %}Kommentin poistaminen{% endblock %}
+
+{% block content %}
+    <h1>Kommentin poistaminen</h1>
+    <p>Haluatko poistaa kommenttisi havainnossa <a href="/item/{{ item.id }}">{{ item.species }}</a>?</p>
+    <h3>Kommentti:</h3>
+    <div class="comment_box">
+        <p>{{ comment.comment }}</p>
+    </div>
+    <form action="" method="post">
+        <input type="hidden" name="csrf_token" value="{{ session.csrf_token }}" />
+        <input type="submit" name="remove" value="Poista kommentti">
+        <input type="submit" name="back" value="Palaa takaisin">
+    </form>
+
+{% endblock %}
