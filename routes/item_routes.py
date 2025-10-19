@@ -1,10 +1,10 @@
-from app import app
-from flask import abort, make_response, redirect, render_template, request, session
 import re
 import csv
 from math import ceil
-import items
 from datetime import datetime
+from flask import abort, make_response, redirect, render_template, request, session
+from app import app
+import items
 from routes.user_routes import require_login, check_csrf
 
 @app.route("/search_item")
@@ -33,10 +33,10 @@ def show_item(item_id):
     start = (page - 1) * per_page
     end = start + per_page
     paged_comments = all_comments[start:end]
-    
-    return render_template("show_item.html", 
-                           item=item, images=images, 
-                           comments=paged_comments,page=page, 
+
+    return render_template("show_item.html",
+                           item=item, images=images,
+                           comments=paged_comments,page=page,
                            total_pages=total_pages)
 
 @app.route("/remove_comment/<int:comment_id>", methods=["GET","POST"])
@@ -78,7 +78,7 @@ def edit_images(item_id):
         abort(404)
     if item["user_id"] != session["user_id"]:
         abort(403)
-    
+
     images = items.get_images(item_id)
     return render_template("images.html", item=item, images=images)
 
@@ -101,7 +101,7 @@ def add_image():
     image = file.read()
     if len(image) > 100 * 1024:
         return "VIRHE: liian suuri kuva"
-    
+
     items.add_image(item_id, image)
     return redirect("/images/" + str(item_id))
 
@@ -167,7 +167,8 @@ def create_item():
         return render_template("new_item.html", error="Paikkakunnan nimi ei kelpaa!")
     place = request.form["place"]
     if not place or len(place) > 50:
-        return render_template("new_item.html", error="Havaintopaikkaa ei ole kirjattu tai se on yli 50 merkkiä pitkä!")
+        return render_template("new_item.html",
+                        error="Havaintopaikkaa ei ole kirjattu tai se on yli 50 merkkiä pitkä!")
     description = request.form["description"]
     if len(description) > 500:
         return render_template("new_item.html", error="Kuvaus on liian pitkä!")
@@ -180,7 +181,7 @@ def create_item():
 def create_comment():
     require_login()
     check_csrf()
-    
+
     comment = request.form["comment"]
     item_id = request.form["item_id"]
     item = items.get_item(item_id)
@@ -239,7 +240,6 @@ def update_item():
         return render_template("new_item.html", error="Lajin nimi ei kelpaa!")
     date_str = request.form["date"]
     try:
-        from datetime import datetime
         date = datetime.strptime(date_str, "%Y-%m-%d").date()
     except ValueError:
         return render_template("new_item.html", error="Virheellinen päivämäärä!")

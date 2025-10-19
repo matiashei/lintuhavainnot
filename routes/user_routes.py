@@ -1,8 +1,7 @@
-from app import app
-from flask import Flask
 import secrets
-from flask import abort, redirect, render_template, request, session
 import sqlite3
+from flask import abort, redirect, render_template, request, session
+from app import app
 import users
 
 def require_login():
@@ -33,7 +32,7 @@ def create():
     password1 = request.form["password1"]
     password2 = request.form["password2"]
     if password1 != password2:
-        return render_template("register.html", error="Salasanat eivät ole samat!")    
+        return render_template("register.html", error="Salasanat eivät ole samat!")
     try:
         users.create_user(username, password1)
     except sqlite3.IntegrityError:
@@ -50,7 +49,7 @@ def login():
         password = request.form["password"]
 
     user_id = users.check_login(username, password)
-        
+
     if user_id:
         session["user_id"] = user_id
         session["username"] = username

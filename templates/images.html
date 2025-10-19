@@ -10,7 +10,9 @@
             <input type="checkbox" name="image_id" value="{{ image.id }}"><br>
         {% endfor %}
         <input type="hidden" name="item_id" value="{{ item.id }}">
-        <p><input type="submit" value="Poista valitut" /></p>
+        {% if images %}
+            <p><input type="submit" value="Poista valitut" /></p>
+        {% endif %}
         <input type="hidden" name="csrf_token" value="{{ session.csrf_token }}" />
     </form>
 
@@ -22,6 +24,6 @@
         <input type="hidden" name="item_id" value="{{ item.id }}">
         <p><input type="submit" value="Lähetä" /></p>
         <input type="hidden" name="csrf_token" value="{{ session.csrf_token }}" />
-    </form>    
+    </form>
     <a href="/item/{{ item.id }}">« Takaisin havaintoon</a>
 {% endblock %}

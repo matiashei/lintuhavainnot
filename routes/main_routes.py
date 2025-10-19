@@ -1,8 +1,8 @@
-from app import app
-from flask import session, request, redirect, render_template
+from datetime import datetime
 from math import ceil
 from collections import defaultdict
-from datetime import datetime
+from flask import session, request, redirect, render_template
+from app import app
 import items
 
 @app.route("/theme")
