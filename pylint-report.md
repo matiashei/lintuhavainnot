@@ -1,3 +1,5 @@
+
+```
 ************* Module app
 app.py:7:0: C0304: Final newline missing (missing-final-newline)
 app.py:1:0: C0114: Missing module docstring (missing-module-docstring)
@@ -100,3 +102,5 @@ items.py:86:0: C0116: Missing function or method docstring (missing-function-doc
 
 -----------------------------------
 Your code has been rated at 7.02/10
+
+```
