@@ -38,6 +38,17 @@
       {% endfor %}
     </ul>
 
+    {% if total_pages > 1 %}
+      <div class="pagination">
+        {% if page > 1 %}
+          <a href="/item/{{ item.id }}?page={{ page - 1 }}">« Edelliset kommentit</a>
+        {% endif %}
+        {% if page < total_pages %}
+          <a href="/item/{{ item.id }}?page={{ page + 1 }}">Seuraavat kommentit »</a>
+        {% endif %}
+      </div>
+    {% endif %}
+
     <h3>Uusi kommentti:</h3>
     <form action="/create_comment" method="post">
       <input type="text" name="comment" rows="8" cols="40" maxlength="400" required> <br>

@@ -3,6 +3,7 @@ from app import app
 from flask import abort, make_response, redirect, render_template, request, session
 import re
 import csv
+from math import ceil
 import items
 from datetime import datetime
 from routes.user_routes import require_login, check_csrf
@@ -19,12 +20,25 @@ def search_item():
 
 @app.route("/item/<int:item_id>")
 def show_item(item_id):
+    page = request.args.get("page", 1, type=int)
+    per_page = 5
     item = items.get_item(item_id)
     if not item:
         abort(404)
     images = items.get_images(item_id)
-    comments = items.get_comments(item_id)
-    return render_template("show_item.html", item=item, images=images, comments=comments)
+    all_comments = items.get_comments(item_id)
+
+    total_count = len(all_comments)
+    total_pages = ceil(total_count / per_page)
+
+    start = (page - 1) * per_page
+    end = start + per_page
+    paged_comments = all_comments[start:end]
+    
+    return render_template("show_item.html", 
+                           item=item, images=images, 
+                           comments=paged_comments,page=page, 
+                           total_pages=total_pages)
 
 @app.route("/image/<int:image_id>")
 def show_image(image_id):
